@@ -63,6 +63,12 @@ int main()
 			player.x_speed=0;
 		}
 
+		//Frame time management
+		clock_end=std::clock();
+		frametime_s=(float)(clock_end-clock_begin)/CLOCKS_PER_SEC;
+		clock_begin=clock_end;
+		std::cout << 1/frametime_s << " FPS"<< std::endl;
+		
 		//player physics
 		player.physics_update(FRICTION, frametime_s);
 
@@ -74,12 +80,6 @@ int main()
 		}
 		game.update();
 
-
-		//Frame time management
-		clock_end=std::clock();
-		frametime_s=(float)(clock_end-clock_begin)/CLOCKS_PER_SEC;
-		clock_begin=clock_end;
-		std::cout << 1/frametime_s << " FPS"<< std::endl;
 	}
 	return 0;
 }
