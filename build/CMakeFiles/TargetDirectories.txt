@@ -1,0 +1,3 @@
+/home/johannespfeiffer/Code/money-man/build/CMakeFiles/rebuild_cache.dir
+/home/johannespfeiffer/Code/money-man/build/CMakeFiles/edit_cache.dir
+/home/johannespfeiffer/Code/money-man/build/CMakeFiles/money-man.dir

@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/money-man.dir/src/main.cpp.o  -o money-man  /usr/lib/x86_64-linux-gnu/libSDL2.so 
