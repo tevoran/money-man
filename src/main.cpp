@@ -6,6 +6,8 @@ int main()
 {
 	mm::game game;
 
+	mm::object player(game, "../assets/player.png");
+
 	//main loop
 	bool quit=false;
 	while(!quit)
@@ -20,7 +22,7 @@ int main()
 				quit=true;
 			}
 		}
-
+		player.render(50,50,200,200);
 		game.update();
 	}
 	return 0;
