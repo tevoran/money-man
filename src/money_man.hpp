@@ -11,9 +11,10 @@ namespace mm
 		int res_x=0;
 		int res_y=0;
 		float gravity=0;
+		float floor_y=0;
 
 		SDL_Renderer *renderer=NULL;
-		game(const int res_x_in, const int res_y_in, const float gravity_in);
+		game(const int res_x_in, const int res_y_in, const float gravity_in, const int floor_level);
 		~game();
 		void update();
 	};
@@ -24,18 +25,19 @@ namespace mm
 		SDL_Texture *texture=NULL;
 		mm::game *m_game=NULL;
 
-		float x_speed=0;
-		float y_speed=0;
-
 		int m_w=0;
 		int m_h=0;
 
 	public:
+		float x_speed=0;
+		float y_speed=0;
+
 		float x=0;
 		float y=0;
 
 		object(mm::game *game, const char* path, const int x_in, const int y_in, const int w, const int h);
 		void render();
-		void physics_update(const float time_secs);
+		void render(const int x_in, const int y_in);
+		void physics_update(const float friction, const float time_secs);
 	};
 }
