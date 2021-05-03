@@ -8,9 +8,13 @@ mm::game::~game()
 	SDL_Quit();
 }
 
-mm::game::game()
+mm::game::game(const int res_x_in, const int res_y_in, const float gravity_in)
 {
+	res_x=res_x_in;
+	res_y=res_y_in;
+	gravity=gravity_in;
+
 	SDL_Init(SDL_INIT_EVERYTHING);
-	window=SDL_CreateWindow("Money Man", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, 0);
+	window=SDL_CreateWindow("Money Man", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, res_x, res_y, 0);
 	renderer=SDL_CreateRenderer(window, -1, 0);
 }
