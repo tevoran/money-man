@@ -7,7 +7,6 @@
 #define RES_X 1366
 #define RES_Y 766
 #define FLOOR_OFFSET 64
-#define FRICTION 0.01
 
 int main()
 {
@@ -43,7 +42,7 @@ int main()
 			quit=true;
 		}
 
-		if(keyboard_state[SDL_SCANCODE_SPACE]) //jump
+		if(keyboard_state[SDL_SCANCODE_SPACE] && (player.y+127) == game.floor_y) //jump
 		{
 			player.y_speed=-800;
 		}
@@ -68,9 +67,9 @@ int main()
 		frametime_s=(float)(clock_end-clock_begin)/CLOCKS_PER_SEC;
 		clock_begin=clock_end;
 		std::cout << 1/frametime_s << " FPS"<< std::endl;
-		
+
 		//player physics
-		player.physics_update(FRICTION, frametime_s);
+		player.physics_update(frametime_s);
 
 		//render
 		player.render();

@@ -41,7 +41,7 @@ void mm::object::render(const int x_in, const int y_in)
 	SDL_RenderCopy(m_game->renderer, texture, NULL, &dst_rect);
 }
 
-void mm::object::physics_update(const float friction, const float time_secs)
+void mm::object::physics_update(const float time_secs)
 {
 	//location update
 	x=x+(x_speed)*time_secs;
