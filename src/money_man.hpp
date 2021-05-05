@@ -1,12 +1,27 @@
 #pragma once
 #include <SDL2/SDL.h>
+#include <chrono>
+#include <ratio>
 
 namespace mm
 {
+	class time
+	{
+	private:
+		std::chrono::steady_clock::time_point clock_begin;
+		std::chrono::steady_clock::time_point clock_end;
+		std::chrono::duration<float> frametime;
+	public:
+		time();
+		float frametime_update_sec();
+		float frametime_sec();
+	};
+
 	class game
 	{
 	private:
 		SDL_Window *window=NULL;
+
 	public:
 		int res_x=0;
 		int res_y=0;

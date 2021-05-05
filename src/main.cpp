@@ -13,14 +13,10 @@ int main()
 {
 	int floor_level=RES_Y-FLOOR_OFFSET;
 	mm::game game(RES_X, RES_Y, GRAVITY_CONSTANT, floor_level);
+	mm::time frametime;
 
 	mm::object player(&game, "../assets/player.png", RES_X/2, 0, 43, 127);
 	mm::object floor(&game, "../assets/ground_tile.png", 0, RES_Y-FLOOR_OFFSET, 64, 64);
-
-	std::chrono::steady_clock::time_point clock_begin=std::chrono::steady_clock::now();
-	std::chrono::steady_clock::time_point clock_end=std::chrono::steady_clock::now();
-	std::chrono::duration<float> frametime=std::chrono::duration_cast<std::chrono::duration<float>>(clock_end-clock_begin);
-	std::cout << frametime.count() << std::endl;
 
 	//main loop
 	bool quit=false;
@@ -65,13 +61,10 @@ int main()
 		}
 
 		//Frame time management
-		clock_end=std::chrono::steady_clock::now();
-		frametime=std::chrono::duration_cast<std::chrono::duration<float>>(clock_end-clock_begin);
-		clock_begin=clock_end;
-		std::cout << 1/frametime.count() << " FPS" << std::endl;
+		std::cout << 1/frametime.frametime_sec() << " FPS" << std::endl;
 
 		//player physics
-		player.physics_update(frametime.count());
+		player.physics_update(frametime.frametime_sec());
 
 		//render
 		player.render();
@@ -79,6 +72,8 @@ int main()
 		{
 			floor.render(i*64,RES_Y-FLOOR_OFFSET);
 		}
+
+		frametime.frametime_update_sec();
 		game.update();
 
 	}
