@@ -55,4 +55,6 @@ namespace mm
 		void render(const int x_in, const int y_in);
 		void physics_update(const float time_secs);
 	};
+
+	void handling_input(mm::game& game, bool& quit, mm::object& player);
 }
