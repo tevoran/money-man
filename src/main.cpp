@@ -1,6 +1,7 @@
 #include "money_man.hpp"
 #include <iostream>
-#include <ctime>
+#include <chrono>
+#include <ratio>
 
 
 #define GRAVITY_CONSTANT 750
@@ -16,9 +17,10 @@ int main()
 	mm::object player(&game, "../assets/player.png", RES_X/2, 0, 43, 127);
 	mm::object floor(&game, "../assets/ground_tile.png", 0, RES_Y-FLOOR_OFFSET, 64, 64);
 
-	std::clock_t clock_begin=std::clock();
-	std::clock_t clock_end=std::clock();
-	float frametime_s;
+	std::chrono::steady_clock::time_point clock_begin=std::chrono::steady_clock::now();
+	std::chrono::steady_clock::time_point clock_end=std::chrono::steady_clock::now();
+	std::chrono::duration<float> frametime=std::chrono::duration_cast<std::chrono::duration<float>>(clock_end-clock_begin);
+	std::cout << frametime.count() << std::endl;
 
 	//main loop
 	bool quit=false;
@@ -63,13 +65,13 @@ int main()
 		}
 
 		//Frame time management
-		clock_end=std::clock();
-		frametime_s=(float)(clock_end-clock_begin)/CLOCKS_PER_SEC;
+		clock_end=std::chrono::steady_clock::now();
+		frametime=std::chrono::duration_cast<std::chrono::duration<float>>(clock_end-clock_begin);
 		clock_begin=clock_end;
-		std::cout << 1/frametime_s << " FPS"<< std::endl;
+		std::cout << 1/frametime.count() << " FPS" << std::endl;
 
 		//player physics
-		player.physics_update(frametime_s);
+		player.physics_update(frametime.count());
 
 		//render
 		player.render();
