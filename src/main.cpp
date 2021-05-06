@@ -18,8 +18,8 @@ int main()
 	mm::time frametime;
 
 	mm::object player(&game, "../assets/player.png", RES_X/2, 0, 43, 127);
-	mm::object floor(&game, "../assets/ground_tile.png", 0, RES_Y-FLOOR_OFFSET, 64, 64);
-	mm::object dollar(&game, "../assets/dollar.png", 500, DOLLAR_MAX_HEIGHT, 64, 64);
+	mm::object floor(&game, "../assets/ground_tile.png", 0, RES_Y-FLOOR_OFFSET, 128, 64);
+	mm::object dollar(&game, "../assets/dollar.png", 500, DOLLAR_MAX_HEIGHT, 45, 33);
 
 	//initializing random seed
 	srand(time(NULL));
@@ -47,9 +47,9 @@ int main()
 		dollar.render();
 		player.render();
 
-		for(int i=0; i<((RES_X/64)+1); i++)
+		for(int i=0; i<((RES_X/floor.m_w)+1); i++)
 		{
-			floor.render(i*64,RES_Y-FLOOR_OFFSET);
+			floor.render(i*floor.m_w,RES_Y-FLOOR_OFFSET);
 		}
 
 		frametime.frametime_update_sec();
