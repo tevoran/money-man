@@ -2,12 +2,14 @@
 #include <iostream>
 #include <chrono>
 #include <ratio>
-
+#include <cstdlib>
+#include <ctime>
 
 #define GRAVITY_CONSTANT 750
 #define RES_X 1366
 #define RES_Y 766
 #define FLOOR_OFFSET 64
+#define DOLLAR_MAX_HEIGHT RES_Y-600
 
 int main()
 {
@@ -17,13 +19,22 @@ int main()
 
 	mm::object player(&game, "../assets/player.png", RES_X/2, 0, 43, 127);
 	mm::object floor(&game, "../assets/ground_tile.png", 0, RES_Y-FLOOR_OFFSET, 64, 64);
-	mm::object dollar(&game, "../assets/dollar.png", 500, 150, 64, 64);
+	mm::object dollar(&game, "../assets/dollar.png", 500, DOLLAR_MAX_HEIGHT, 64, 64);
+
+	//initializing random seed
+	srand(time(NULL));
 
 	//main loop
 	bool quit=false;
 	while(!quit)
 	{
 		mm::handling_input(game, quit, player);
+
+		//player hits dollars
+		if(mm::is_colliding(player, dollar)==true)
+		{
+			dollar.x=rand()%(RES_X-dollar.m_w);
+		}
 
 		//Frame time management
 		std::cout << 1/frametime.frametime_sec() << " FPS" << std::endl;

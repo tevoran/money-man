@@ -40,15 +40,15 @@ namespace mm
 		SDL_Texture *texture=NULL;
 		mm::game *m_game=NULL;
 
-		int m_w=0;
-		int m_h=0;
-
 	public:
 		float x_speed=0;
 		float y_speed=0;
 
 		float x=0;
 		float y=0;
+
+		int m_w=0;
+		int m_h=0;
 
 		object(mm::game *game, const char* path, const int x_in, const int y_in, const int w, const int h);
 		void render();
@@ -57,4 +57,5 @@ namespace mm
 	};
 
 	void handling_input(mm::game& game, bool& quit, mm::object& player);
+	bool is_colliding(mm::object& a, mm::object& b);
 }
