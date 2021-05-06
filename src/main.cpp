@@ -34,6 +34,7 @@ int main()
 		if(mm::is_colliding(player, dollar)==true)
 		{
 			dollar.x=rand()%(RES_X-dollar.m_w);
+			dollar.y=rand()%(400)+DOLLAR_MAX_HEIGHT;
 		}
 
 		//Frame time management
