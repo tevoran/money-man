@@ -4,6 +4,8 @@
 #include <ratio>
 #include <cstdlib>
 #include <ctime>
+#include <vector>
+#include <cstdio>
 
 #define GRAVITY_CONSTANT 750
 #define RES_X 1920
@@ -24,6 +26,22 @@ int main()
 	mm::object dollar(&game, "../assets/dollar.png", 500, DOLLAR_MAX_HEIGHT, 45, 33);
 
 	//text preparation
+	mm::text end_of_game1(&game, "CONGRATULATIONS!", text_color);
+	mm::text end_of_game2(&game, "YOU ARE NOW RETIRED", text_color);
+	mm::text end_of_game3(&game, "BUT SADLY YOU DIED TWO YEARS", text_color);
+	mm::text end_of_game4(&game, "LATER BECAUSE OF CANCER", text_color);
+
+	char age[]="AGE: XX YEARS";
+	std::vector<mm::text> text_age;
+	int current_age=0;
+
+	for(int i=18; i<=65; i++)
+	{
+		sprintf(age+5, "%i YEARS", i);
+		text_age.push_back(mm::text(&game, age, text_color));
+		std::cout << age << std::endl;
+	}
+
 
 	int current_month=0;
 	mm::text text_month[]=
@@ -61,6 +79,7 @@ int main()
 			if(current_month==12)
 			{
 				current_month=0;
+				current_age++;
 			}
 		}
 
@@ -71,7 +90,19 @@ int main()
 		player.physics_update(frametime.frametime_sec());
 
 		//render
-		text_month[current_month].render(RES_X-500,0);
+		if(current_age<=47)
+		{
+			text_age[current_age].render(0,0);
+			text_month[current_month].render(RES_X-500,0);
+		}
+		//end of game
+		if(current_age>47)
+		{
+			end_of_game1.render(400,350);
+			end_of_game2.render(400,475);	
+			end_of_game3.render(400,550);
+			end_of_game4.render(400,625);	
+		}
 		dollar.render();
 		player.render();
 
