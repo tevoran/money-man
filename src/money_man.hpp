@@ -1,5 +1,6 @@
 #pragma once
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 #include <chrono>
 #include <ratio>
 
@@ -28,8 +29,10 @@ namespace mm
 		float gravity=0;
 		float floor_y=0;
 
+		TTF_Font *font=NULL;
+
 		SDL_Renderer *renderer=NULL;
-		game(const int res_x_in, const int res_y_in, const float gravity_in, const int floor_level);
+		game(const int res_x_in, const int res_y_in, const float gravity_in, const int floor_level, const char *font_path);
 		~game();
 		void update();
 	};
@@ -54,6 +57,18 @@ namespace mm
 		void render();
 		void render(const int x_in, const int y_in);
 		void physics_update(const float time_secs);
+	};
+
+	class text
+	{
+	private:
+		SDL_Texture *text_texture=NULL;
+		mm::game *m_game=NULL;
+		int m_w;
+		int m_h;
+	public:
+		text(mm::game *game, const char *text, SDL_Color& text_color);
+		void render(int x, int y);
 	};
 
 	void handling_input(mm::game& game, bool& quit, mm::object& player);
