@@ -6,8 +6,8 @@
 #include <ctime>
 
 #define GRAVITY_CONSTANT 750
-#define RES_X 1366
-#define RES_Y 766
+#define RES_X 1920
+#define RES_Y 1080
 #define FLOOR_OFFSET 64
 #define DOLLAR_MAX_HEIGHT RES_Y-600
 

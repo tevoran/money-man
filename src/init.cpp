@@ -16,6 +16,6 @@ mm::game::game(const int res_x_in, const int res_y_in, const float gravity_in, c
 	floor_y=(float)floor_level;
 
 	SDL_Init(SDL_INIT_EVERYTHING);
-	window=SDL_CreateWindow("Money Man", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, res_x, res_y, 0);
+	window=SDL_CreateWindow("Money Man", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, res_x, res_y, SDL_WINDOW_FULLSCREEN);
 	renderer=SDL_CreateRenderer(window, -1, 0);
 }
