@@ -13,7 +13,7 @@ mm::object::object(mm::game *game, const char* path, const int x_in, const int y
 	SDL_Surface *tmp_surface=IMG_Load(path);
 	if(tmp_surface==NULL)
 	{
-		std::cout << "[WARNING]: player model couldn't be loaded" << std::endl;
+		std::cout << "[WARNING]: sprite at " << path <<  " couldn't be loaded" << std::endl;
 		exit(0);
 	}
 	texture=SDL_CreateTextureFromSurface(m_game->renderer, tmp_surface);

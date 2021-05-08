@@ -21,3 +21,9 @@ float mm::time::frametime_sec()
 {
 	return frametime.count();
 }
+
+void mm::time::keep_fps(int fps)
+{
+	float frametime_left=((float)1/(float)fps)-frametime.count();
+	SDL_Delay((uint32_t)frametime_left);
+}

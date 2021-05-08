@@ -27,12 +27,13 @@ int main()
 	mm::object player(&game, "../assets/player.png", RES_X/2, 0, 43, 127);
 	mm::object floor(&game, "../assets/ground_tile.png", 0, RES_Y-FLOOR_OFFSET, 128, 64);
 	mm::object dollar(&game, "../assets/dollar.png", 500, DOLLAR_MAX_HEIGHT, 45, 33);
+	mm::object background(&game, "../assets/background.png", 0,0, RES_X, RES_Y);
 
 	std::vector<mm::object> cloud;
 	for(int i=0; i<NUM_CLOUDS; i++)
 	{
 		cloud.push_back(mm::object(&game, "../assets/cloud1.png", rand()%RES_X, rand()%300, 128, 64));
-			cloud[i].x_speed=rand()%60+10;
+			cloud[i].x_speed=rand()%45+10;
 	}
 
 	//text preparation
@@ -96,9 +97,6 @@ int main()
 		player.physics_update(frametime.frametime_sec(), GRAVITY_FLAG | SCREEN_COLLISION_FLAG);
 
 		//render
-		dollar.render();
-		player.render();
-
 		for(int i=0; i<NUM_CLOUDS; i++)
 		{
 			cloud[i].render();
@@ -108,6 +106,10 @@ int main()
 				cloud[i].x=-cloud[i].m_w;
 			}
 		}
+
+		background.render();
+		dollar.render();
+		player.render();
 
 		for(int i=0; i<((RES_X/floor.m_w)+1); i++)
 		{
@@ -129,7 +131,7 @@ int main()
 		}
 
 		
-
+		frametime.keep_fps(60);
 		frametime.frametime_update_sec();
 		game.update();
 

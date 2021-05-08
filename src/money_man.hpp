@@ -20,6 +20,7 @@ namespace mm
 		time();
 		float frametime_update_sec();
 		float frametime_sec();
+		void keep_fps(int fps);
 	};
 
 	class game
