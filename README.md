@@ -17,11 +17,11 @@ CMake and a C++-compiler.
 The building instructions on Debian-based distributions are the followin
 ones:
 
-`sudo apt install libsdl2-dev libsdl2-image-dev libsdl2-ttf-dev cmake`
-`git clone git@github.com:tevoran/money-man.git`
-`cd money-man`
-`mkdir build`
-`cd build`
-`cmake ..`
-`make`
+`sudo apt install libsdl2-dev libsdl2-image-dev libsdl2-ttf-dev cmake` 
+`git clone git@github.com:tevoran/money-man.git` 
+`cd money-man` 
+`mkdir build` 
+`cd build` 
+`cmake ..` 
+`make` 
 `./money-man`
