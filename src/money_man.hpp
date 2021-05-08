@@ -4,6 +4,10 @@
 #include <chrono>
 #include <ratio>
 
+
+#define GRAVITY_FLAG 0x01
+#define SCREEN_COLLISION_FLAG 0x02
+
 namespace mm
 {
 	class time
@@ -56,7 +60,7 @@ namespace mm
 		object(mm::game *game, const char* path, const int x_in, const int y_in, const int w, const int h);
 		void render();
 		void render(const int x_in, const int y_in);
-		void physics_update(const float time_secs);
+		void physics_update(const float time_secs, const uint32_t flags);
 	};
 
 	class text

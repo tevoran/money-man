@@ -41,32 +41,38 @@ void mm::object::render(const int x_in, const int y_in)
 	SDL_RenderCopy(m_game->renderer, texture, NULL, &dst_rect);
 }
 
-void mm::object::physics_update(const float time_secs)
+void mm::object::physics_update(const float time_secs, const uint32_t flags)
 {
 	//location update
 	x=x+(x_speed)*time_secs;
 	y=y+(y_speed)*time_secs;
 
 	//bumping into screen borders
-	if(x<0)
+	if(flags & SCREEN_COLLISION_FLAG)
 	{
-		x=0;
-		x_speed=-x_speed;
-	}
+		if(x<0)
+		{
+			x=0;
+			x_speed=-x_speed;
+		}
 
-	if((x+m_w)>m_game->res_x)
-	{
-		x=m_game->res_x-m_w;
-		x_speed=-x_speed;
+		if((x+m_w)>m_game->res_x)
+		{
+			x=m_game->res_x-m_w;
+			x_speed=-x_speed;
+		}
 	}
 
 	//gravity
-	y_speed=y_speed+(m_game->gravity*time_secs);
-
-	if((y+m_h) > m_game->floor_y)
+	if(flags & GRAVITY_FLAG)
 	{
-		x_speed=0;
-		y_speed=0;
-		y=m_game->floor_y-m_h;
+		y_speed=y_speed+(m_game->gravity*time_secs);
+
+		if((y+m_h) > m_game->floor_y)
+		{
+			x_speed=0;
+			y_speed=0;
+			y=m_game->floor_y-m_h;
+		}
 	}
 }
