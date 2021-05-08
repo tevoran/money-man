@@ -41,6 +41,21 @@ void mm::object::render(const int x_in, const int y_in)
 	SDL_RenderCopy(m_game->renderer, texture, NULL, &dst_rect);
 }
 
+void mm::object::render_frame(const int num_frame,const int x_in, const int y_in)
+{
+	SDL_Rect src_rect;
+	src_rect.x=m_w*num_frame;
+	src_rect.y=0;
+	src_rect.w=m_w;
+	src_rect.h=m_h;
+	SDL_Rect dst_rect;
+	dst_rect.x=x_in;
+	dst_rect.y=y_in;
+	dst_rect.w=m_w;
+	dst_rect.h=m_h;
+	SDL_RenderCopy(m_game->renderer, texture, &src_rect, &dst_rect);
+}
+
 void mm::object::physics_update(const float time_secs, const uint32_t flags)
 {
 	//location update

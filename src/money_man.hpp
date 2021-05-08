@@ -5,6 +5,15 @@
 #include <ratio>
 
 
+#define GRAVITY_CONSTANT 750
+#define RES_X 1920
+#define RES_Y 1080
+#define FLOOR_OFFSET 64
+#define DOLLAR_MAX_HEIGHT RES_Y-600
+#define NUM_CLOUDS 20
+#define TARGET_FPS 60
+
+
 #define GRAVITY_FLAG 0x01
 #define SCREEN_COLLISION_FLAG 0x02
 
@@ -62,6 +71,7 @@ namespace mm
 		void render();
 		void render(const int x_in, const int y_in);
 		void physics_update(const float time_secs, const uint32_t flags);
+		void render_frame(const int num_frame,const int x_in, const int y_in);
 	};
 
 	class text
@@ -78,4 +88,8 @@ namespace mm
 
 	void handling_input(mm::game& game, bool& quit, mm::object& player);
 	bool is_colliding(mm::object& a, mm::object& b);
+
+	void player_animate(mm::object& player, mm::time& time);
+	void player_animation_idle(mm::object& player, mm::time& time);
+	void player_animation_jump(mm::object& player, mm::time& time);
 }
