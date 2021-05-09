@@ -1,6 +1,7 @@
 #include "money_man.hpp"
 #include <ratio>
 #include <chrono>
+#include <iostream>
 
 mm::time::time()
 {
@@ -24,6 +25,12 @@ float mm::time::frametime_sec()
 
 void mm::time::keep_fps(int fps)
 {
-	float frametime_left=((float)1/(float)fps)-frametime.count();
-	SDL_Delay((uint32_t)frametime_left);
-}
+	float frametime_total=(float)1/(float)fps;
+	float frametime_left=frametime_total-frametime.count();
+	if(frametime_left<0)
+	{
+		return;
+	}
+	frametime_left=frametime_left*1000;
+	SDL_Delay((uint32_t)frametime_left/2);
+} 

@@ -1,6 +1,7 @@
 #include "money_man.hpp"
+#include <iostream>
 
-void mm::handling_input(mm::game& game, bool& quit, mm::object& player)
+void mm::handling_input(mm::game& game, bool& quit, mm::object& player, bool& intro)
 {
 	//input queue
 	SDL_Event event;
@@ -22,6 +23,8 @@ void mm::handling_input(mm::game& game, bool& quit, mm::object& player)
 	if(keyboard_state[SDL_SCANCODE_SPACE] && (player.y+127) == game.floor_y) //jump
 	{
 		player.y_speed=-800;
+		std::cout << "1111111111111111111111111" << std::endl;
+		intro=false;
 	}
 
 	if(keyboard_state[SDL_SCANCODE_A]) //moving left

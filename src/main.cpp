@@ -31,11 +31,20 @@ int main()
 	}
 
 	//text preparation
+	text_color={228,225,228,0};
+
+	mm::text intro_text1(&game, "WELCOME TO MONEY MAN", text_color);
+	mm::text intro_text2(&game, "YOU JUST GOT YOUR FIRST JOB", text_color);
+	mm::text intro_text3(&game, "BUT DO YOU HAVE WHAT IT TAKES", text_color);
+	mm::text intro_text4(&game, "TO WORK UNTIL RETIREMENT?", text_color);
+	mm::text intro_text5(&game, "PRESS <SPACE> TO START", text_color);
+
 	mm::text end_of_game1(&game, "CONGRATULATIONS!", text_color);
 	mm::text end_of_game2(&game, "YOU ARE NOW RETIRED", text_color);
 	mm::text end_of_game3(&game, "BUT SADLY YOU DIED TWO YEARS", text_color);
 	mm::text end_of_game4(&game, "LATER BECAUSE OF CANCER", text_color);
 
+	text_color={45,44,44,0};
 	char age[]="AGE: XX YEARS";
 	std::vector<mm::text> text_age;
 	int current_age=0;
@@ -66,71 +75,83 @@ int main()
 	};
 
 	//main loop
+	bool intro=true;
 	bool quit=false;
 	while(!quit)
 	{
-		mm::handling_input(game, quit, player);
-
-		//player hits dollars
-		if(mm::is_colliding(player, dollar)==true)
+		mm::handling_input(game, quit, player, intro);
+		if(intro==false)
 		{
-			dollar.x=rand()%(RES_X-dollar.m_w);
-			dollar.y=rand()%(400)+DOLLAR_MAX_HEIGHT;
-			current_month++;
-			if(current_month==12)
+
+			//player hits dollars
+			if(mm::is_colliding(player, dollar)==true)
 			{
-				current_month=0;
-				current_age++;
+				dollar.x=rand()%(RES_X-dollar.m_w);
+				dollar.y=rand()%(400)+DOLLAR_MAX_HEIGHT;
+				current_month++;
+				if(current_month==12)
+				{
+					current_month=0;
+					current_age++;
+				}
 			}
 		}
 
-		//Frame time management
-		std::cout << "Frame calculation time: " << frametime.frametime_sec()*1000 << " ms" << std::endl;
+			//Frame time management
+			std::cout << "Frame calculation time: " << frametime.frametime_sec()*1000 << " ms" << std::endl;
 
-		//render
-		for(int i=0; i<NUM_CLOUDS; i++)
-		{
-			cloud[i].render();
-			cloud[i].physics_update(frametime.frametime_sec(), 0);
-			if(cloud[i].x>RES_X)
+			//render
+			//clouds
+			for(int i=0; i<NUM_CLOUDS; i++)
 			{
-				cloud[i].x=-cloud[i].m_w;
+				cloud[i].render();
+				cloud[i].physics_update(frametime.frametime_sec(), 0);
+				if(cloud[i].x>RES_X)
+				{
+					cloud[i].x=-cloud[i].m_w;
+				}
 			}
-		}
 
-		background.render();
-		dollar.render();
+			background.render();
+			dollar.render();
 
-		//player animations
-		mm::player_animate(player, frametime);
+			//player animations
+			mm::player_animate(player, frametime);
 
-		for(int i=0; i<((RES_X/floor.m_w)+1); i++)
+			for(int i=0; i<((RES_X/floor.m_w)+1); i++)
+			{
+				floor.render(i*floor.m_w,RES_Y-FLOOR_OFFSET);
+			}
+
+			if(current_age<=47)
+			{
+				text_age[current_age].render(0,0);
+				text_month[current_month].render(RES_X-500,0);
+			}
+			//end of game
+			if(current_age>47)
+			{
+				end_of_game1.render(400,350);
+				end_of_game2.render(400,475);	
+				end_of_game3.render(400,550);
+				end_of_game4.render(400,625);	
+			}
+
+		if(intro==true)
 		{
-			floor.render(i*floor.m_w,RES_Y-FLOOR_OFFSET);
+			intro_text1.render(400,350);
+			intro_text2.render(400,475);	
+			intro_text3.render(400,550);
+			intro_text4.render(400,625);
+			intro_text5.render(400,725);
 		}
 
-		if(current_age<=47)
-		{
-			text_age[current_age].render(0,0);
-			text_month[current_month].render(RES_X-500,0);
-		}
-		//end of game
-		if(current_age>47)
-		{
-			end_of_game1.render(400,350);
-			end_of_game2.render(400,475);	
-			end_of_game3.render(400,550);
-			end_of_game4.render(400,625);	
-		}
+			//player physics
+			player.physics_update(frametime.frametime_sec(), GRAVITY_FLAG | SCREEN_COLLISION_FLAG);
+			frametime.keep_fps(TARGET_FPS);
+			frametime.frametime_update_sec();
 
-		
-		frametime.keep_fps(TARGET_FPS);
-		frametime.frametime_update_sec();
-
-		//player physics
-		player.physics_update(frametime.frametime_sec(), GRAVITY_FLAG | SCREEN_COLLISION_FLAG);
-
-		game.update();
+			game.update();
 
 	}
 	return 0;

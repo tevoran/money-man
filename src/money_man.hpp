@@ -86,7 +86,7 @@ namespace mm
 		void render(int x, int y);
 	};
 
-	void handling_input(mm::game& game, bool& quit, mm::object& player);
+	void handling_input(mm::game& game, bool& quit, mm::object& player, bool& intro);
 	bool is_colliding(mm::object& a, mm::object& b);
 
 	void player_animate(mm::object& player, mm::time& time);
