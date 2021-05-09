@@ -16,7 +16,7 @@ find_library(SDL2_ttf SDL2_ttf)
 find_library(SDL2_image SDL2_image)
 find_package(SDL2_image REQUIRED)
 
-#creating the executable of the simple software renderer
+#creating the executable of Money Man
 include_directories(src/)
 file(GLOB_RECURSE "money-man" SRC src/*.cpp)
 add_executable(money-man ${money-man})
@@ -24,3 +24,4 @@ add_executable(money-man ${money-man})
 target_link_libraries(money-man LINK_PRIVATE "${SDL2}")
 target_link_libraries(money-man LINK_PRIVATE "${SDL2_ttf}")
 target_link_libraries(money-man LINK_PRIVATE "${SDL2_image}")
+

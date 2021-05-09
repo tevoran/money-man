@@ -7,8 +7,9 @@
 #include <vector>
 #include <cstdio>
 
+#undef main
 
-int main()
+int main(int argc, char *argv[])
 {
 	SDL_Color text_color={45, 44, 44, 0};
 
