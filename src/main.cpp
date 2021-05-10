@@ -14,11 +14,14 @@ int main(int argc, char *argv[])
 	SDL_Color text_color={45, 44, 44, 0};
 
 	int floor_level=RES_Y-FLOOR_OFFSET;
+	std::cout << "init game base: " << std::endl;
 	mm::game game(RES_X, RES_Y, GRAVITY_CONSTANT, floor_level, "../assets/font/Retroscape.ttf");
 	srand(time(NULL)); 	//initializing random seed
 	mm::time frametime;
 
+
 	//loading assets
+	std::cout << "loading assets:" << std::endl;
 	mm::object player(&game, "../assets/player_anim.png", RES_X/2, 0, 43, 127);
 	mm::object floor(&game, "../assets/ground_tile.png", 0, RES_Y-FLOOR_OFFSET, 128, 64);
 	mm::object dollar(&game, "../assets/dollar.png", 500, DOLLAR_MAX_HEIGHT, 45, 33);
