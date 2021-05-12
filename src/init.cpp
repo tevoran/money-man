@@ -3,20 +3,37 @@
 #include <SDL2/SDL.h>
 #include <iostream>
 
+int RES_Y=0;
+int RES_X=0;
+
 mm::game::~game()
 {
 	TTF_Quit();
 	SDL_Quit();
 }
 
-mm::game::game(const int res_x_in, const int res_y_in, const float gravity_in, const int floor_level, const char *font_path)
+mm::game::game(const float gravity_in, int& floor_level, const char *font_path)
 {
-	res_x=res_x_in;
-	res_y=res_y_in;
 	gravity=gravity_in;
-	floor_y=(float)floor_level;
 
 	SDL_Init(SDL_INIT_EVERYTHING);
+
+	//getting system's resolution
+	SDL_DisplayMode vinfo;
+	if(SDL_GetDesktopDisplayMode(0, &vinfo)!=0)
+	{
+		std::cout << "[WARNING]: Couldn't get desktop resolution" << std::endl;
+		std::cout << SDL_GetError() << std::endl;
+		exit(0);
+	}
+	floor_level=vinfo.h-FLOOR_OFFSET;
+	floor_y=(float)floor_level;
+
+	RES_X=vinfo.w;
+	RES_Y=vinfo.h;
+	res_x=RES_X;
+	res_y=RES_Y;
+
 	window=SDL_CreateWindow("Money Man", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, res_x, res_y, SDL_WINDOW_FULLSCREEN);
 	if(window==NULL)
 	{
@@ -30,7 +47,7 @@ mm::game::game(const int res_x_in, const int res_y_in, const float gravity_in, c
 		exit(0);
 	}
 	std::cout << "TTF Init: " << TTF_Init() << std::endl;
-	font=TTF_OpenFont(font_path, 50);
+	font=TTF_OpenFont(font_path, (int)(0.04*(float)RES_Y));
 	if(font==NULL)
 	{
 		std::cout << "[WARNING]: Font wasn't found at: " << font_path << std::endl;

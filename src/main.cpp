@@ -6,16 +6,19 @@
 #include <ctime>
 #include <vector>
 #include <cstdio>
+#include <SDL2/SDL.h>
 
 #undef main
 
+
 int main(int argc, char *argv[])
 {
+
 	SDL_Color text_color={45, 44, 44, 0};
 
-	int floor_level=RES_Y-FLOOR_OFFSET;
+	int floor_level;
 	std::cout << "init game base: " << std::endl;
-	mm::game game(RES_X, RES_Y, GRAVITY_CONSTANT, floor_level, "../assets/font/Retroscape.ttf");
+	mm::game game(GRAVITY_CONSTANT, floor_level, "../assets/font/Retroscape.ttf");
 	srand(time(NULL)); 	//initializing random seed
 	mm::time frametime;
 
@@ -24,14 +27,14 @@ int main(int argc, char *argv[])
 	std::cout << "loading assets:" << std::endl;
 	mm::object player(&game, "../assets/player_anim.png", RES_X/2, 0, 43, 127);
 	mm::object floor(&game, "../assets/ground_tile.png", 0, RES_Y-FLOOR_OFFSET, 128, 64);
-	mm::object dollar(&game, "../assets/dollar.png", 500, DOLLAR_MAX_HEIGHT, 45, 33);
+	mm::object dollar(&game, "../assets/dollar.png", 500, DOLLAR_MAX_HEIGHT, (int)(0.025*(float)RES_X), (int)(0.036*(float)RES_Y));
 	mm::object background(&game, "../assets/background.png", 0,0, RES_X, RES_Y);
 
 	std::vector<mm::object> cloud;
 	for(int i=0; i<NUM_CLOUDS; i++)
 	{
-		cloud.push_back(mm::object(&game, "../assets/cloud1.png", rand()%RES_X, rand()%300, 128, 64));
-			cloud[i].x_speed=rand()%40+10;
+		cloud.push_back(mm::object(&game, "../assets/cloud1.png", rand()%RES_X, rand()%(int)(0.3*(float)RES_Y), (int)(0.0667*(float)RES_X), (int)(0.059*(float)RES_Y)));
+			cloud[i].x_speed=rand()%((int)(0.021*(float)RES_X))+(int)(0.005*(float)RES_X);
 	}
 
 	//text preparation
@@ -135,19 +138,19 @@ int main(int argc, char *argv[])
 			//end of game
 			if(current_age>47)
 			{
-				end_of_game1.render(400,350);
-				end_of_game2.render(400,475);	
-				end_of_game3.render(400,550);
-				end_of_game4.render(400,625);	
+				end_of_game1.render((int)(0.15*(float)RES_X),(int)(0.35*(float)RES_Y));
+				end_of_game2.render((int)(0.15*(float)RES_X),(int)(0.45*(float)RES_Y));	
+				end_of_game3.render((int)(0.15*(float)RES_X),(int)(0.51*(float)RES_Y));
+				end_of_game4.render((int)(0.15*(float)RES_X),(int)(0.57*(float)RES_Y));	
 			}
 
 		if(intro==true)
 		{
-			intro_text1.render(400,350);
-			intro_text2.render(400,475);	
-			intro_text3.render(400,550);
-			intro_text4.render(400,625);
-			intro_text5.render(400,725);
+			intro_text1.render((int)(0.15*(float)RES_X),(int)(0.35*(float)RES_Y));
+			intro_text2.render((int)(0.15*(float)RES_X),(int)(0.45*(float)RES_Y));	
+			intro_text3.render((int)(0.15*(float)RES_X),(int)(0.51*(float)RES_Y));
+			intro_text4.render((int)(0.15*(float)RES_X),(int)(0.57*(float)RES_Y));
+			intro_text5.render((int)(0.15*(float)RES_X),(int)(0.65*(float)RES_Y));
 		}
 
 			//player physics

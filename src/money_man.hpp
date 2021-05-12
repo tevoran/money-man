@@ -6,16 +6,17 @@
 
 
 #define GRAVITY_CONSTANT 750
-#define RES_X 1920
-#define RES_Y 1080
 #define FLOOR_OFFSET 64
-#define DOLLAR_MAX_HEIGHT RES_Y-600
+#define DOLLAR_MAX_HEIGHT 0.5*RES_Y
 #define NUM_CLOUDS 20
 #define TARGET_FPS 60
 
 
 #define GRAVITY_FLAG 0x01
 #define SCREEN_COLLISION_FLAG 0x02
+
+extern int RES_X;
+extern int RES_Y;
 
 namespace mm
 {
@@ -46,7 +47,7 @@ namespace mm
 		TTF_Font *font=NULL;
 
 		SDL_Renderer *renderer=NULL;
-		game(const int res_x_in, const int res_y_in, const float gravity_in, const int floor_level, const char *font_path);
+		game(const float gravity_in, int& floor_level, const char *font_path);
 		~game();
 		void update();
 	};

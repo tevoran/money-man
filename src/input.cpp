@@ -20,21 +20,20 @@ void mm::handling_input(mm::game& game, bool& quit, mm::object& player, bool& in
 		quit=true;
 	}
 
-	if(keyboard_state[SDL_SCANCODE_SPACE] && (player.y+127) == game.floor_y) //jump
+	if(keyboard_state[SDL_SCANCODE_SPACE] && (player.y+player.m_h) == game.floor_y) //jump
 	{
-		player.y_speed=-800;
-		std::cout << "1111111111111111111111111" << std::endl;
+		player.y_speed=-(int)(0.75*(float)RES_Y);
 		intro=false;
 	}
 
 	if(keyboard_state[SDL_SCANCODE_A]) //moving left
 	{
-		player.x_speed=-400;
+		player.x_speed=-(int)(0.20*(float)RES_X);
 	}
 
 	if(keyboard_state[SDL_SCANCODE_D]) //moving right
 	{
-		player.x_speed=400;
+		player.x_speed=(int)(0.20*(float)RES_X);
 	}
 
 	if(keyboard_state[SDL_SCANCODE_A] && keyboard_state[SDL_SCANCODE_D])
