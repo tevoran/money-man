@@ -5,6 +5,7 @@ The goal is quite simple jump and move to get your monthly paycheck
 to reach your ultimate goal of retiring.
 
 ![title](screenshots/money-man-screen-1.png)
+![title2](screenshots/money-man-screen-2.png)
 
 ## Compilation
 
