@@ -28,7 +28,7 @@ int main(int argc, char *argv[])
 	mm::object player(&game, "../assets/player_anim.png", RES_X/2, 0, 43, 127);
 	mm::object floor(&game, "../assets/ground_tile.png", 0, RES_Y-FLOOR_OFFSET, 128, 64);
 	mm::object dollar(&game, "../assets/dollar.png", 500, DOLLAR_MAX_HEIGHT, (int)(0.025*(float)RES_X), (int)(0.036*(float)RES_Y));
-	mm::object background(&game, "../assets/background.png", 0,0, RES_X, RES_Y);
+	//mm::object background(&game, "../assets/background.png", 0,0, RES_X, RES_Y);
 
 	std::vector<mm::object> cloud;
 	for(int i=0; i<NUM_CLOUDS; i++)
@@ -36,6 +36,70 @@ int main(int argc, char *argv[])
 		cloud.push_back(mm::object(&game, "../assets/cloud1.png", rand()%RES_X, rand()%(int)(0.3*(float)RES_Y), (int)(0.0667*(float)RES_X), (int)(0.059*(float)RES_Y)));
 			cloud[i].x_speed=rand()%((int)(0.021*(float)RES_X))+(int)(0.005*(float)RES_X);
 	}
+
+	std::vector<mm::object> background;
+	int num_background_buildings_front=rand()%9+5;
+	int num_background_buildings_back=rand()%11+6;
+	int num_background_buildings=num_background_buildings_front+num_background_buildings_back;
+	//backrow of houses
+	for(int i=0; i<num_background_buildings_back; i++)
+	{
+		if(i%2==1)
+		{
+		background.push_back(
+						mm::object(
+									&game,
+									"../assets/building3.png",
+									rand()%RES_X,
+									(int)(0.7*(float)RES_Y),
+									(int)(0.025*(float)RES_X),
+									(int)(0.3*(float)RES_Y)));			
+		}
+		else
+		{
+		background.push_back(
+						mm::object(
+									&game,
+									"../assets/building4.png",
+									rand()%RES_X,
+									(int)(0.8*(float)RES_Y),
+									(int)(0.035*(float)RES_X),
+									(int)(0.2*(float)RES_Y)));		
+		}
+
+
+	}
+
+	//front row of houses
+	for(int i=0; i<num_background_buildings_front; i++)
+	{
+		if(i%2==1)
+		{
+		background.push_back(
+						mm::object(
+									&game,
+									"../assets/building1.png",
+									rand()%RES_X,
+									(int)(0.55*(float)RES_Y),
+									(int)(0.050*(float)RES_X),
+									(int)(0.5*(float)RES_Y)));			
+		}
+		else
+		{
+		background.push_back(
+						mm::object(
+									&game,
+									"../assets/building2.png",
+									rand()%RES_X,
+									(int)(0.71*(float)RES_Y),
+									(int)(0.065*(float)RES_X),
+									(int)(0.29*(float)RES_Y)));		
+		}
+
+
+	}
+
+
 
 	//text preparation
 	text_color={228,225,228,0};
@@ -118,8 +182,11 @@ int main(int argc, char *argv[])
 					cloud[i].x=-cloud[i].m_w;
 				}
 			}
+			for(int i=0; i<num_background_buildings; i++)
+			{
+				background[i].render();
+			}
 
-			background.render();
 			dollar.render();
 
 			//player animations
