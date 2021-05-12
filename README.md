@@ -4,6 +4,8 @@ Money Man is a simple 2D game about capitalism and earning money.
 The goal is quite simple jump and move to get your monthly paycheck
 to reach your ultimate goal of retiring.
 
+![title](screenshots/money-man-screen-1.png)
+
 ## Compilation
 
 CMake is used for building Money Man, so it is supposed to work under
