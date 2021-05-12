@@ -8,6 +8,9 @@
 #include <cstdio>
 #include <SDL2/SDL.h>
 
+#define PATH_PRE_RELEASE ..
+#define PATH_LINUX_RELEASE /usr/games/money-man
+
 #undef main
 
 
@@ -28,7 +31,6 @@ int main(int argc, char *argv[])
 	mm::object player(&game, "../assets/player_anim.png", RES_X/2, 0, 43, 127);
 	mm::object floor(&game, "../assets/ground_tile.png", 0, RES_Y-FLOOR_OFFSET, 128, 64);
 	mm::object dollar(&game, "../assets/dollar.png", 500, DOLLAR_MAX_HEIGHT, (int)(0.025*(float)RES_X), (int)(0.036*(float)RES_Y));
-	//mm::object background(&game, "../assets/background.png", 0,0, RES_X, RES_Y);
 
 	std::vector<mm::object> cloud;
 	for(int i=0; i<NUM_CLOUDS; i++)
